@@ -1,0 +1,29 @@
+@import "variables";
+
+* {
+  box-sizing: border-box;
+}
+body {
+  color: $main-color;
+  font-size: 100%;
+  margin: 0;
+  line-height: 1.4283;
+  font-family: "Segoe UI", Roboto, Verdana, "Helvetica Neue", sans-serif;
+}
+h1,
+h2,
+h3 {
+  font-weight: 400;
+}
+a {
+  color: $secondary-color;
+  text-decoration: none;
+}
+.cont {
+  width: 80%;
+  padding: 1rem;
+}
+.cont-fluid {
+  width: 100%;
+  padding: 1rem;
+}

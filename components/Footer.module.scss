@@ -1,0 +1,17 @@
+@import "../styles/_variables.scss";
+@import "../styles/_mixins.scss";
+
+.footer {
+  background-color: $footer-color;
+  color: #fff;
+}
+
+.container {
+  display: flex;
+  margin: 0 auto;
+  max-width: $desktop-container;
+
+  @include mobile() {
+    max-width: $mobile-container;
+  }
+}

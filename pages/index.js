@@ -1,6 +1,7 @@
-import Link from 'next/link'
-import dbConnect from '../utils/dbConnect'
-import Pet from '../models/Pet'
+import Link from 'next/link';
+
+import Pet from '../models/Pet';
+import dbConnect from '../utils/dbConnect';
 
 const Index = ({ pets }) => (
   <>
@@ -8,7 +9,6 @@ const Index = ({ pets }) => (
     {pets.map((pet) => (
       <div key={pet._id}>
         <div className="card">
-          <img src={pet.image_url} />
           <h5 className="pet-name">{pet.name}</h5>
           <div className="main-content">
             <p className="pet-name">{pet.name}</p>
@@ -45,21 +45,21 @@ const Index = ({ pets }) => (
       </div>
     ))}
   </>
-)
+);
 
 /* Retrieves pet(s) data from mongodb database */
 export async function getServerSideProps() {
-  await dbConnect()
+  await dbConnect();
 
   /* find all the data in our database */
-  const result = await Pet.find({})
+  const result = await Pet.find({});
   const pets = result.map((doc) => {
-    const pet = doc.toObject()
-    pet._id = pet._id.toString()
-    return pet
-  })
+    const pet = doc.toObject();
+    pet._id = pet._id.toString();
+    return pet;
+  });
 
-  return { props: { pets: pets } }
+  return { props: { pets: pets } };
 }
 
-export default Index
+export default Index;
