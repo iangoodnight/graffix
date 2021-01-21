@@ -9,6 +9,7 @@
 .container {
   display: flex;
   margin: 0 auto;
+  padding: .5rem 1rem;
   max-width: $desktop-container;
 
   @include mobile() {

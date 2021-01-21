@@ -1,0 +1,9 @@
+@import '../styles/_variables.scss';
+
+.box {
+  min-height: 20vh;
+  padding: 1rem;
+  border-radius: 1rem;
+  border: 2px solid $secondary-color;
+  margin: 0 auto 1rem;
+}

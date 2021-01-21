@@ -1,0 +1,7 @@
+@import "../styles/_variables.scss";
+
+.selected {
+  font-weight: 500;
+  text-decoration: underline;
+  color: $secondary-color !important;
+}

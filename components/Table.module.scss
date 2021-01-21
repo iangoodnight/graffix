@@ -1,0 +1,26 @@
+@import '../styles/_variables.scss';
+@import '../styles/_mixins.scss';
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+
+  thead {
+    text-transform: capitalize;
+    background-color: $main-color; 
+    color: #fff;
+  }
+  tbody {
+    tr:nth-child(even) {
+      background: #CCC;
+    }
+  }
+  td {
+    padding: .2rem;
+  }
+  @include mobile() {
+    .hide {
+      display: none;
+    }
+  }  
+}
