@@ -1,0 +1,65 @@
+@import '../styles/_variables.scss';
+@import '../styles/_mixins.scss';
+
+.form {
+  display: flex;
+  flex-flow: row wrap;
+  border: 2px solid $secondary-color;
+  border-radius: 2em;
+  padding: 2em;
+  min-height: 80vh;
+  font-size: 1.2rem;
+
+  h1 {
+    margin: auto;
+    width: 100%;
+    text-align: center;
+  }
+  label {
+    flex: 1 1 auto;
+    margin: auto 0;
+    min-width: 25%;
+  }
+  input,
+  select {
+    flex: 2 auto;
+    margin: auto 0;
+    padding: .25em;
+    min-width: 75%;
+    text-indent: .5em;
+    border-radius: .5em;
+    border: 1px solid $main-color;
+    font-size: inherit;
+  }
+  input[type="checkbox"] {
+    min-height: 1.3em;
+  }
+  button {
+    display: block;
+    margin: 0 auto;
+    width: 30vw;
+    margin: auto auto;
+    background-color: $secondary-color;
+    color: #fff;
+    border-radius: 1em;
+    font-size: 1.1em;
+    font-weight: 500;
+    padding: .5em;
+  }
+  .description {
+    margin: 0 auto;
+    min-width: 100%;
+    text-align: center;
+    font-style: oblique;
+    font-size: 1rem;
+  }
+  @include mobile() {
+    input,
+    select {
+      min-width: 100%;
+    }
+    button {
+      margin-top: 1rem;
+    }
+  }
+}

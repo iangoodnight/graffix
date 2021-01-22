@@ -3,18 +3,17 @@ import TableRow from '../../components/TableRow';
 import Order from '../../models/Order';
 import dbConnect from '../../utils/dbConnect';
 
-const OrderQueue = ({ orders }) => {
+const ProductionQueue = ({ orders }) => {
   const headers = [
     { name: 'number', field: 'order_number' },
-    { name: 'customer', field: 'customer', hide: true },
-    { name: 'product', field: 'product' },
-    { name: 'status', field: 'status' },
-    { name: 'qty', field: 'label_quantity' },
+    { name: 'product', field: 'product', hide: true },
+    { name: 'laminate', field: 'laminate' },
+    { name: 'qty', fiels: 'label_quantity' },
   ];
 
   return (
     <div>
-      <h1>Order Queue</h1>
+      <h1>Production Queue</h1>
       <Table headers={headers}>
         <tbody>
           {orders.map((order) => (
@@ -30,13 +29,13 @@ const OrderQueue = ({ orders }) => {
 export async function getServerSideProps() {
   await dbConnect();
 
-  /* find all data that matches queue statuses */
-  const result = await Order.find({
+  /* find all data the matches queue statuses */
+  const results = await Order.find({
     status: {
-      $in: ['new', 'initial contact', 'rendering', 'pending approval'],
+      $in: ['approved', 'printed', 'in progress'],
     },
   });
-  const orders = result.map((doc) => {
+  const orders = results.map((doc) => {
     const order = doc.toObject();
     order._id = order._id.toString();
     order.createdAt = new Date(order?.createdAt || null).getDate();
@@ -46,4 +45,5 @@ export async function getServerSideProps() {
 
   return { props: { orders: orders } };
 }
-export default OrderQueue;
+
+export default ProductionQueue;

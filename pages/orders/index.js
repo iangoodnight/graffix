@@ -1,4 +1,7 @@
+import Link from 'next/link';
+
 import StatusBox from '../../components/StatusBox.js';
+import orderStyles from './orders.module.scss';
 
 const Index = () => {
   let queues = [
@@ -33,8 +36,15 @@ const Index = () => {
   });
 
   return (
-    <div>
+    <div className={orderStyles.content}>
       <h1>Orders</h1>
+      <Link href="/orders/new">
+        <a>
+          <button>
+            New order <span>✚</span>
+          </button>
+        </a>
+      </Link>
       {statuses}
     </div>
   );
