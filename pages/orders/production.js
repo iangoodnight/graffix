@@ -6,9 +6,9 @@ import dbConnect from '../../utils/dbConnect';
 const ProductionQueue = ({ orders }) => {
   const headers = [
     { name: 'number', field: 'order_number' },
-    { name: 'product', field: 'product', hide: true },
-    { name: 'laminate', field: 'laminate' },
-    { name: 'qty', fiels: 'label_quantity' },
+    { name: 'product', field: 'product', hide: 'mobile' },
+    { name: 'laminate', field: 'laminate', hide: 'tablet' },
+    { name: 'qty', field: 'label_quantity' },
   ];
 
   return (

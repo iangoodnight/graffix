@@ -4,8 +4,10 @@ const TableRow = ({ headers, data }) => {
   return (
     <tr data-id={data._id}>
       {headers.map((col) =>
-        data[col.field] && col.hide ? (
-          <td className={tableStyles.hide}>{data[col.field]}</td>
+        col.hide === 'mobile' ? (
+          <td className={tableStyles['hide-mobile']}>{data[col.field]}</td>
+        ) : col.hide === 'tablet' ? (
+          <td className={tableStyles['hide-tablet']}>{data[col.field]}</td>
         ) : (
           <td>{data[col.field]}</td>
         )

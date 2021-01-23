@@ -6,8 +6,10 @@ const Table = ({ headers, children }) => {
       <thead>
         <tr>
           {headers.map((col) =>
-            col.hide ? (
-              <td className={tableStyles.hide}>{col.name}</td>
+            col.hide === 'mobile' ? (
+              <td className={tableStyles['hide-mobile']}>{col.name}</td>
+            ) : col.hide === 'tablet' ? (
+              <td className={tableStyles['hide-tablet']}>{col.name}</td>
             ) : (
               <td>{col.name}</td>
             )

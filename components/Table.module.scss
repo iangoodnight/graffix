@@ -18,8 +18,13 @@
   td {
     padding: .2rem;
   }
+  @include tablet() {
+    .hide-tablet {
+      display: none;
+    }
+  }
   @include mobile() {
-    .hide {
+    .hide-mobile {
       display: none;
     }
   }  
