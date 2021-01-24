@@ -18,7 +18,11 @@ const OrderQueue = ({ orders }) => {
       <Table headers={headers}>
         <tbody>
           {orders.map((order) => (
-            <TableRow key={order._id} headers={headers} data={order} />
+            <TableRow
+              key={order._id}
+              headers={headers}
+              data={order}
+            />
           ))}
         </tbody>
       </Table>

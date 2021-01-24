@@ -15,6 +15,11 @@ const OrderForm = ({ formId, orderForm, forNewOrder = true }) => {
     customer: orderForm.customer,
     product: orderForm.product,
     label_quantity: orderForm.label_quantity,
+    label_dimensions: {
+      height: orderForm.height,
+      width: orderForm.width,
+      unit: orderForm.unit,
+    },
     laminate: orderForm.laminate,
     priority: orderForm.priority,
     status: orderForm.status,
@@ -150,6 +155,30 @@ const OrderForm = ({ formId, orderForm, forNewOrder = true }) => {
           type="number"
           name="label_quantity"
           value={form.label_quantity}
+          onChange={handleChange}
+        />
+
+        <label htmlFor="height">Height</label>
+        <input
+          type="text"
+          name="height"
+          value={form.label_dimensions.height}
+          onChange={handleChange}
+        />
+        
+        <label htmlFor="width">Width</label>
+        <input
+          type="text"
+          name="height"
+          value={form.label_dimensions.width}
+          onChange={handleChange}
+        />
+
+        <label htmlFor="unit">Unit</label>
+        <input
+          type="text"
+          maxLength="16"
+          value={form.label_dimensions.unit}
           onChange={handleChange}
         />
 

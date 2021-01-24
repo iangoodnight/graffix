@@ -1,8 +1,12 @@
 import tableStyles from './Table.module.scss';
 
-const TableRow = ({ headers, data }) => {
+const TableRow = ({ headers, data, key }) => {
   return (
-    <tr data-id={data._id}>
+    <tr
+      data-id={data._id}
+      key={key}
+      tabIndex="1"
+    >
       {headers.map((col) =>
         col.hide === 'mobile' ? (
           <td className={tableStyles['hide-mobile']}>{data[col.field]}</td>
