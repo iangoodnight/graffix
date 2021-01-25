@@ -4,8 +4,16 @@ const NewOrder = () => {
   const orderForm = {
     order_number: '',
     customer: '',
-    product: '',
+    artwork: {
+      title: '',
+      link: '',
+    },
     label_quantity: '',
+    label_dimensions: {
+      height: '',
+      width: '',
+      unit: '',
+    },
     laminate: '',
     priority: '',
     status: 'new',

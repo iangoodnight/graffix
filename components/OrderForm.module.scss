@@ -30,6 +30,12 @@
     border-radius: .5em;
     border: 1px solid $main-color;
     font-size: inherit;
+
+    &:focus {
+      border-radius: .5em;
+      border: 2px solid $secondary-color;
+      outline: none;
+    }
   }
   input[type="checkbox"] {
     min-height: 1.3em;

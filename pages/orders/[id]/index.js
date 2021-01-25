@@ -37,6 +37,8 @@ export async function getServerSideProps({ params }) {
 
   const order = await Order.findById(params.id).lean();
   order._id = order._id.toString();
+  order.createdAt = new Date(order?.createdAt || null).getDate();
+  order.updatedAt = new Date(order?.updatedAt || null).getDate();
 
   return { props: { order } };
 }

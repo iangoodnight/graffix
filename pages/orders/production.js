@@ -15,11 +15,9 @@ const ProductionQueue = ({ orders }) => {
     <div>
       <h1>Production Queue</h1>
       <Table headers={headers}>
-        <tbody>
-          {orders.map((order) => (
-            <TableRow key={order._id} headers={headers} data={order} />
-          ))}
-        </tbody>
+        {orders.map((order) => (
+          <TableRow key={order._id} headers={headers} data={order} />
+        ))}
       </Table>
     </div>
   );

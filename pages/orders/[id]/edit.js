@@ -22,10 +22,19 @@ const EditOrder = () => {
   const orderForm = {
     order_number: order.order_number,
     customer: order.customer,
-    product: order.product,
+    artwork: {
+      title: order?.artwork?.title || '',
+      link: order?.artwork?.link || '',
+    },
     label_quantity: order.label_quantity,
+    label_dimensions: {
+      height: order.label_dimensions.height,
+      width: order.label_dimensions.width,
+      unit: order.label_dimensions.unit,
+    },
     laminate: order.laminate,
     priority: order.priority,
+    status: order.status,
     in_house: order.in_house,
   };
 

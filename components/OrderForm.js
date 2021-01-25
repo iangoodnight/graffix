@@ -13,18 +13,22 @@ const OrderForm = ({ formId, orderForm, forNewOrder = true }) => {
   const [form, setForm] = useState({
     order_number: orderForm.order_number,
     customer: orderForm.customer,
-    product: orderForm.product,
+    artwork: {
+      title: orderForm.artwork.title,
+      link: orderForm.artwork.link,
+    },
     label_quantity: orderForm.label_quantity,
     label_dimensions: {
-      height: orderForm.height,
-      width: orderForm.width,
-      unit: orderForm.unit,
+      height: orderForm.label_dimensions.height,
+      width: orderForm.label_dimensions.width,
+      unit: orderForm.label_dimensions.unit,
     },
     laminate: orderForm.laminate,
     priority: orderForm.priority,
     status: orderForm.status,
     in_house: orderForm.in_house,
   });
+  console.log(form);
 
   /* PUT method for editing an existing entry */
   const putData = async (form) => {
@@ -71,11 +75,12 @@ const OrderForm = ({ formId, orderForm, forNewOrder = true }) => {
       if (!res.ok) {
         throw new Error(res.status);
       }
-
+      console.log(JSON.stringify(form));
       router.push('/');
     } catch (error) {
       setMessage('Failed to add order');
     }
+
   };
 
   const handleChange = (e) => {
@@ -83,10 +88,44 @@ const OrderForm = ({ formId, orderForm, forNewOrder = true }) => {
     const value = target.name === 'in_house' ? target.checked : target.value;
     const name = target.name;
 
-    setForm({
-      ...form,
-      [name]: value,
-    });
+    switch (name) {
+      case 'artwork':
+        setForm({
+          ...form,
+          artwork: { ...form.artwork, title: value }
+        });
+        break;
+      case 'link':
+        setForm({
+          ...form,
+          artwork: { ...form.artwork, link: value }
+        });
+        break;
+      case 'height':
+        setForm({
+          ...form,
+          label_dimensions: { ...form.label_dimensions, height: value }
+        });
+        break;
+      case 'width':
+        setForm({
+          ...form,
+          label_dimensions: { ...form.label_dimensions, width: value }
+        });
+        break;
+      case 'unit':
+        setForm({
+          ...form,
+          label_dimensions: { ...form.label_dimensions, unit: value }
+        });
+        break;
+      default:
+        setForm({
+          ...form,
+          [name]: value,
+        });
+        break;
+    }
   };
 
   const handleSubmit = (e) => {
@@ -142,11 +181,19 @@ const OrderForm = ({ formId, orderForm, forNewOrder = true }) => {
           required
         />
 
-        <label htmlFor="product">Product</label>
+        <label htmlFor="artwork">Artwork</label>
         <input
           type="text"
-          name="product"
-          value={form.product}
+          name="artwork"
+          value={form.artwork.title}
+          onChange={handleChange}
+        />
+
+        <label htmlFor="link">Link</label>
+        <input
+          type="text"
+          name="link"
+          value={form.artwork.link}
           onChange={handleChange}
         />
 
@@ -165,11 +212,11 @@ const OrderForm = ({ formId, orderForm, forNewOrder = true }) => {
           value={form.label_dimensions.height}
           onChange={handleChange}
         />
-        
+
         <label htmlFor="width">Width</label>
         <input
           type="text"
-          name="height"
+          name="width"
           value={form.label_dimensions.width}
           onChange={handleChange}
         />
@@ -177,6 +224,7 @@ const OrderForm = ({ formId, orderForm, forNewOrder = true }) => {
         <label htmlFor="unit">Unit</label>
         <input
           type="text"
+          name="unit"
           maxLength="16"
           value={form.label_dimensions.unit}
           onChange={handleChange}

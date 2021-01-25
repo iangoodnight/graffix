@@ -13,8 +13,9 @@ const OrderSchema = new mongoose.Schema(
       required: [true, 'Please provide a customer name.'],
       maxlength: [64, 'Name cannot be more than 64 characters.'],
     },
-    product: {
-      type: String,
+    artwork: {
+      title: String,
+      link: String,
     },
     label_quantity: {
       type: Number,

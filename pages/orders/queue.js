@@ -5,9 +5,9 @@ import dbConnect from '../../utils/dbConnect';
 
 const OrderQueue = ({ orders }) => {
   const headers = [
+    { name: 'customer', field: 'customer' },
     { name: 'number', field: 'order_number' },
-    { name: 'customer', field: 'customer', hide: 'mobile' },
-    { name: 'product', field: 'product' },
+    { name: 'artwork', field: 'artwork' },
     { name: 'status', field: 'status' },
     { name: 'qty', field: 'label_quantity' },
   ];
@@ -16,15 +16,13 @@ const OrderQueue = ({ orders }) => {
     <div>
       <h1>Order Queue</h1>
       <Table headers={headers}>
-        <tbody>
-          {orders.map((order) => (
-            <TableRow
-              key={order._id}
-              headers={headers}
-              data={order}
-            />
-          ))}
-        </tbody>
+        {orders.map((order) => (
+          <TableRow
+            headers={headers}
+            data={order}
+            key={order._id}
+          />
+        ))}
       </Table>
     </div>
   );
