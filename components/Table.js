@@ -7,17 +7,11 @@ const Table = ({ headers, children }) => {
         <tr>
           {headers.map((col) =>
             col.hide === 'mobile' ? (
-              <td
-                className={tableStyles['hide-mobile']}
-                key={col.field}
-              >
+              <td className={tableStyles['hide-mobile']} key={col.field}>
                 {col.name}
               </td>
             ) : col.hide === 'tablet' ? (
-              <td
-                className={tableStyles['hide-tablet']}
-                key={col.field}
-              >
+              <td className={tableStyles['hide-tablet']} key={col.field}>
                 {col.name}
               </td>
             ) : (
@@ -26,9 +20,7 @@ const Table = ({ headers, children }) => {
           )}
         </tr>
       </thead>
-      <tbody>
-      {children}
-      </tbody>
+      <tbody>{children}</tbody>
     </table>
   );
 };

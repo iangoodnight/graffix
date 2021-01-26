@@ -61,7 +61,10 @@ const OrderSchema = new mongoose.Schema(
       default: true,
     },
     po: String,
-    order_date: Date,
+    order_date: {
+      type: Date,
+      default: Date.now,
+    },
     production_date: Date,
     completion_date: Date,
     hold_date: Date,

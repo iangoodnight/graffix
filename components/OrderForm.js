@@ -5,7 +5,7 @@ import { mutate } from 'swr';
 import orderFormStyles from './OrderForm.module.scss';
 
 const OrderForm = ({ formId, orderForm, forNewOrder = true }) => {
-  const router = useRouter();
+ const router = useRouter();
   const contentType = 'application/json';
   const [errors, setErrors] = useState({});
   const [message, setMessage] = useState('');
@@ -80,7 +80,6 @@ const OrderForm = ({ formId, orderForm, forNewOrder = true }) => {
     } catch (error) {
       setMessage('Failed to add order');
     }
-
   };
 
   const handleChange = (e) => {
@@ -92,31 +91,31 @@ const OrderForm = ({ formId, orderForm, forNewOrder = true }) => {
       case 'artwork':
         setForm({
           ...form,
-          artwork: { ...form.artwork, title: value }
+          artwork: { ...form.artwork, title: value },
         });
         break;
       case 'link':
         setForm({
           ...form,
-          artwork: { ...form.artwork, link: value }
+          artwork: { ...form.artwork, link: value },
         });
         break;
       case 'height':
         setForm({
           ...form,
-          label_dimensions: { ...form.label_dimensions, height: value }
+          label_dimensions: { ...form.label_dimensions, height: value },
         });
         break;
       case 'width':
         setForm({
           ...form,
-          label_dimensions: { ...form.label_dimensions, width: value }
+          label_dimensions: { ...form.label_dimensions, width: value },
         });
         break;
       case 'unit':
         setForm({
           ...form,
-          label_dimensions: { ...form.label_dimensions, unit: value }
+          label_dimensions: { ...form.label_dimensions, unit: value },
         });
         break;
       default:

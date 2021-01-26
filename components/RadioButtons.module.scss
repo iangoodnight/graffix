@@ -1,0 +1,20 @@
+@import '../styles/_variables.scss';
+
+.radio {
+  display: flex;
+  background-color: $secondary-color;
+  color: #fff;
+  justify-content: flex-end;
+
+  label {
+    min-width: 6em;
+    text-transform: uppercase;
+    text-align: center;
+  }
+  input[type="radio"] {
+    appearance: none;
+  }
+  input[type="radio"]:checked+label {
+    background-color: rgba(255, 255, 255, 0.2);
+  }
+}

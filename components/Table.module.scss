@@ -1,5 +1,7 @@
 @import '../styles/_variables.scss';
 @import '../styles/_mixins.scss';
+$highlight-rush: #ffcaca;
+$highlight-reprint: #ffe8a6;
 
 .table {
   width: 100%;
@@ -11,9 +13,34 @@
     color: #fff;
   }
   tbody {
-    tr:nth-child(even) {
-      background: #CCC;
+    tr {
+      &.odd {
+        background: #CCC;
+      }
+      &.rush {
+        background: $highlight-rush;
+      }
+      &.reprint {
+        background: $highlight-reprint;
+      } 
+      div {
+        display: flex;
+        justify-content: flex-end;
+
+        button {
+          background-color: $secondary-color;
+          color: #fff;
+          text-transform: uppercase;
+          margin: 0 2em;
+          padding: .1em 1em;
+          border-radius: .3em;
+          border: none;
+        }
+      }
     }
+  } 
+  .hidden {
+    display: none;
   }
   td {
     padding: .2rem;
