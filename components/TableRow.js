@@ -77,50 +77,52 @@ const TableRow = ({ headers, data, odd }) => {
                 {data.customer} (#{data.order_number})
               </h3>
               <table>
-                <tr>
-                  <th scope="row">Order date</th>
-                  <td>{data.order_date || data.createdAt}</td>
-                </tr>
-                <tr>
-                  <th scope="row">Artwork</th>
-                  <td>
-                    <a
-                      href={data.artwork.link}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                    >
-                      {data.artwork.title}
-                    </a>
-                  </td>
-                </tr>
-                <tr>
-                  <th scope="row">Quantity</th>
-                  <td>{data.label_quantity}</td>
-                </tr>
-                <tr>
-                  <th scope="row">Dimensions</th>
-                  <td>{formatDimensions(data.label_dimensions)}</td>
-                </tr>
-                <tr>
-                  <th scope="row">Laminate</th>
-                  <td>{data.laminate}</td>
-                </tr>
-                <tr>
-                  <th scope="row">Machine</th>
-                  <td>{data.machine || '---'}</td>
-                </tr>
-                <tr>
-                  <th scope="row">Priority</th>
-                  <td>{data.priority === '' ? 'none' : data.priority}</td>
-                </tr>
-                <tr>
-                  <th scope="row">Status</th>
-                  <td>{data.status}</td>
-                </tr>
-                <tr>
-                  <th scope="row">Notes</th>
-                  <td>{data.notes}</td>
-                </tr>
+                <tbody>
+                  <tr>
+                    <th scope="row">Order date</th>
+                    <td>{data.order_date || data.createdAt}</td>
+                  </tr>
+                  <tr>
+                    <th scope="row">Artwork</th>
+                    <td>
+                      <a
+                        href={data.artwork.link}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        {data.artwork.title}
+                      </a>
+                    </td>
+                  </tr>
+                  <tr>
+                    <th scope="row">Quantity</th>
+                    <td>{data.label_quantity}</td>
+                  </tr>
+                  <tr>
+                    <th scope="row">Dimensions</th>
+                    <td>{formatDimensions(data.label_dimensions)}</td>
+                  </tr>
+                  <tr>
+                    <th scope="row">Laminate</th>
+                    <td>{data.laminate}</td>
+                  </tr>
+                  <tr>
+                    <th scope="row">Machine</th>
+                    <td>{data.machine || '---'}</td>
+                  </tr>
+                  <tr>
+                    <th scope="row">Priority</th>
+                    <td>{data.priority === '' ? 'none' : data.priority}</td>
+                  </tr>
+                  <tr>
+                    <th scope="row">Status</th>
+                    <td>{data.status}</td>
+                  </tr>
+                  <tr>
+                    <th scope="row">Notes</th>
+                    <td>{data.notes}</td>
+                  </tr>
+                </tbody>
               </table>
             </div>
             <div className={tableStyles['button-row']}>

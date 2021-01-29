@@ -3,6 +3,9 @@
 * {
   box-sizing: border-box;
 }
+.js-focus-visbile :focus:not(.focus-visible) {
+  outline: none;
+}
 body {
   color: $main-color;
   font-size: 100%;
