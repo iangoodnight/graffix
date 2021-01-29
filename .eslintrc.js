@@ -16,6 +16,7 @@ module.exports = {
     browser: true, // Enable browser globals
     amd: true, // Enable require() and define()
     node: true, // Enable node globals
+    es6: true,
   },
   plugins: ['simple-import-sort'],
   extends: [

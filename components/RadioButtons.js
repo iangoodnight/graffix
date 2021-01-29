@@ -1,35 +1,23 @@
-import { useState } from 'react';
+import { Fragment } from 'react';
+
 import radioButtonsStyle from './RadioButtons.module.scss';
 
-const RadioButtons = ({ options }) => {
-  const [radio, setRadio] = useState({
-    checked: 0,
-  });
-
-  const handleChange = (e) => {
-    const index = parseInt(e.target.id.split('-')[1]);
-    setRadio({...radio, checked: index});
-  }
-
+const RadioButtons = ({ options, radio, handleChange }) => {
   const buttonOptions = options.map((option, index) => (
-    <>
+    <Fragment key={index}>
       <input
         type="radio"
         name="toggle"
         id={`toggle-${index}`}
-        autocomplete="off"
+        autoComplete="off"
         checked={radio.checked === index}
         onChange={handleChange}
       />
       <label htmlFor={`toggle-${index}`}>{option}</label>
-    </>
+    </Fragment>
   ));
 
-  return (
-    <div className={radioButtonsStyle.radio}>
-      {buttonOptions}
-    </div>
-  );
-}
+  return <div className={radioButtonsStyle.radio}>{buttonOptions}</div>;
+};
 
 export default RadioButtons;

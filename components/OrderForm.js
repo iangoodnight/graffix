@@ -5,7 +5,7 @@ import { mutate } from 'swr';
 import orderFormStyles from './OrderForm.module.scss';
 
 const OrderForm = ({ formId, orderForm, forNewOrder = true }) => {
- const router = useRouter();
+  const router = useRouter();
   const contentType = 'application/json';
   const [errors, setErrors] = useState({});
   const [message, setMessage] = useState('');
@@ -28,7 +28,6 @@ const OrderForm = ({ formId, orderForm, forNewOrder = true }) => {
     status: orderForm.status,
     in_house: orderForm.in_house,
   });
-  console.log(form);
 
   /* PUT method for editing an existing entry */
   const putData = async (form) => {
@@ -86,6 +85,7 @@ const OrderForm = ({ formId, orderForm, forNewOrder = true }) => {
     const target = e.target;
     const value = target.name === 'in_house' ? target.checked : target.value;
     const name = target.name;
+    console.log(`target: ${target}, value: ${value}, name: ${name}`);
 
     switch (name) {
       case 'artwork':
@@ -230,21 +230,29 @@ const OrderForm = ({ formId, orderForm, forNewOrder = true }) => {
         />
 
         <label htmlFor="laminate">Laminate</label>
-        <select name="laminate" value={form.laminate} onChange={handleChange}>
+        <select
+          name="laminate"
+          defaultValue={form.laminate}
+          onBlur={handleChange}
+        >
           <option value="">---</option>
           <option value="matte">Matte</option>
           <option value="high-gloss">High-gloss</option>
         </select>
 
         <label htmlFor="priority">Priority</label>
-        <select name="priority" value={form.priority} onChange={handleChange}>
+        <select
+          name="priority"
+          defaultValue={form.priority}
+          onBlur={handleChange}
+        >
           <option value="">---</option>
           <option value="rush">Rush</option>
           <option value="reprint">Reprint</option>
         </select>
 
         <label htmlFor="status">Status</label>
-        <select name="status" value={form.status} onChange={handleChange}>
+        <select name="status" defaultValue={form.status} onBlur={handleChange}>
           <option value="new">New</option>
           <option value="initial contact">Reach-out</option>
           <option value="rendering">Rendering</option>

@@ -23,11 +23,19 @@ const OrderSchema = new mongoose.Schema(
     label_dimensions: {
       height: Number,
       width: Number,
-      unit: String,
+      unit: {
+        type: String,
+        enum: ['inches', 'centimeters', 'millimeters'],
+      },
     },
     laminate: {
       type: String,
       enum: ['', 'high-gloss', 'matte'],
+    },
+    machine: {
+      type: String,
+      enum: ['', 'metas', 'plotter'],
+      default: '',
     },
     priority: {
       type: String,
@@ -47,6 +55,7 @@ const OrderSchema = new mongoose.Schema(
         'completed',
         'cancelled',
       ],
+      default: 'new',
     },
     in_house: {
       type: Boolean,

@@ -6,7 +6,7 @@ import TableRow from '../../components/TableRow';
 import Order from '../../models/Order';
 import dbConnect from '../../utils/dbConnect';
 
-const OrderQueue = ({ orders }) => {
+const OutsourcedQueue = ({ orders }) => {
   const [activeFilter, setActiveFilter] = useState({
     'in-house': true,
     external: true,
@@ -17,11 +17,12 @@ const OrderQueue = ({ orders }) => {
   });
 
   const headers = [
-    { name: 'customer', field: 'customer' },
+    { name: 'customer', field: 'customer', hide: 'mobile' },
     { name: 'artwork', field: 'artwork' },
-    { name: 'number', field: 'order_number' },
-    { name: 'qty', field: 'label_quantity', hide: 'mobile' },
-    { name: 'size', field: 'label_dimensions', hide: 'tablet' },
+    { name: 'number', field: 'order_number', hide: 'tablet' },
+    { name: 'qty', field: 'label_quantity' },
+    { name: 'size', field: 'label_dimensions' },
+    { name: 'laminate', field: 'laminate' },
     { name: 'date', field: 'order_date', hide: 'tablet' },
     { name: 'status', field: 'status', hide: 'mobile' },
   ];
@@ -59,7 +60,7 @@ const OrderQueue = ({ orders }) => {
 
   return (
     <div>
-      <h1>Order Queue</h1>
+      <h1>Outsourced</h1>
       <RadioButtons
         options={['all orders', ...Object.keys(activeFilter)]}
         radio={radio}
@@ -99,15 +100,13 @@ const OrderQueue = ({ orders }) => {
 export async function getServerSideProps() {
   await dbConnect();
 
-  /* find all data that matches queue statuses */
+  /* find all data the matches queue statuses */
   const result = await Order.find({
     status: {
-      $in: ['new', 'initial contact', 'rendering', 'pending approval'],
+      $nin: ['cancelled', 'completed'],
     },
-  }).sort([
-    ['customer', 1],
-    ['order_date', 'asc'],
-  ]);
+    outsourced: true,
+  });
   const orders = result.map((doc) => {
     const order = doc.toObject();
     order._id = order._id.toString();
@@ -125,4 +124,5 @@ export async function getServerSideProps() {
 
   return { props: { orders: orders } };
 }
-export default OrderQueue;
+
+export default OutsourcedQueue;

@@ -50,7 +50,7 @@
     }
   }
   nav {
-    background-color: rgba(255, 255, 255, .45);
+    background-color: rgba(255, 255, 255, .1);
 
     ul {
       list-style: none;
@@ -60,6 +60,7 @@
       margin: 1rem auto 0;
       max-width: $desktop-container;
       padding: .5rem 1rem;
+      font-size: 1.2rem;
 
       li {
         text-transform: uppercase;
@@ -68,6 +69,21 @@
         .active-link {
           color: #fff;          
            &:hover {
+            text-decoration: underline;
+            color: $secondary-color;
+          }
+        }
+        button {
+          background: none;
+          appearance: none;
+          color: #fff;
+          border: none;
+          text-transform: uppercase;
+          font-size: 1.2rem;
+          letter-spacing: 2px;
+          font-weight: 400;
+
+          &:hover {
             text-decoration: underline;
             color: $secondary-color;
           }
