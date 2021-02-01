@@ -21,7 +21,8 @@
     min-width: 25%;
   }
   input,
-  select {
+  select,
+  textarea {
     flex: 2 auto;
     margin: auto 0;
     padding: .25em;
@@ -61,7 +62,8 @@
   }
   @include tablet() {
     input,
-    select {
+    select,
+    textarea {
       min-width: 100%;
     }
     button {

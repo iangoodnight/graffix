@@ -42,7 +42,7 @@ const TableRow = ({ headers, data, odd }) => {
         tabIndex="0"
         className={rowModifier}
         onKeyDown={handleInterface}
-        onDoubleClick={handleInterface}
+        onDoubleClick={(e) => handleInterface(e)}
       >
         {headers.map((col) => (
           <td

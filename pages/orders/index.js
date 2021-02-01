@@ -23,7 +23,7 @@ const Index = () => {
     },
     {
       title: 'Archived',
-      href: 'completed',
+      href: 'archived',
     },
   ];
 

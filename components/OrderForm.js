@@ -27,6 +27,7 @@ const OrderForm = ({ formId, orderForm, forNewOrder = true }) => {
     priority: orderForm.priority,
     status: orderForm.status,
     in_house: orderForm.in_house,
+    notes: orderForm.notes,
   });
 
   /* PUT method for editing an existing entry */
@@ -52,7 +53,7 @@ const OrderForm = ({ formId, orderForm, forNewOrder = true }) => {
 
       /* Update local data without revalidation */
       mutate(`/api/orders/${id}`, data, false);
-      router.push('/');
+      router.push('/orders');
     } catch (error) {
       setMessage('Failed to update order');
     }
@@ -118,6 +119,18 @@ const OrderForm = ({ formId, orderForm, forNewOrder = true }) => {
           label_dimensions: { ...form.label_dimensions, unit: value },
         });
         break;
+      case 'in_house':
+        setForm({
+          ...form,
+          in_house: !form.in_house,
+          order_number: !form.in_house
+            ? `BANE-${Math.floor(Date.now() / 1000)}`
+            : forNewOrder
+            ? ''
+            : form.order_number,
+        });
+        console.log(form.order_number);
+        break;
       default:
         setForm({
           ...form,
@@ -160,6 +173,14 @@ const OrderForm = ({ formId, orderForm, forNewOrder = true }) => {
           </span>
         </p>
 
+        <label htmlFor="in_house">In house</label>
+        <input
+          type="checkbox"
+          name="in_house"
+          checked={form.in_house}
+          onChange={handleChange}
+        />
+
         <label htmlFor="order_number">Order number</label>
         <input
           type="text"
@@ -167,6 +188,7 @@ const OrderForm = ({ formId, orderForm, forNewOrder = true }) => {
           name="order_number"
           value={form.order_number}
           onChange={handleChange}
+          disabled={form.in_house}
           required
         />
 
@@ -206,7 +228,8 @@ const OrderForm = ({ formId, orderForm, forNewOrder = true }) => {
 
         <label htmlFor="height">Height</label>
         <input
-          type="text"
+          type="number"
+          step={0.01}
           name="height"
           value={form.label_dimensions.height}
           onChange={handleChange}
@@ -214,20 +237,23 @@ const OrderForm = ({ formId, orderForm, forNewOrder = true }) => {
 
         <label htmlFor="width">Width</label>
         <input
-          type="text"
+          type="number"
+          step={0.01}
           name="width"
           value={form.label_dimensions.width}
           onChange={handleChange}
         />
 
         <label htmlFor="unit">Unit</label>
-        <input
-          type="text"
+        <select
           name="unit"
-          maxLength="16"
-          value={form.label_dimensions.unit}
-          onChange={handleChange}
-        />
+          defaultValue={form.label_dimensions.unit}
+          onBlur={handleChange}
+        >
+          <option value="inches">inches</option>
+          <option value="centimeters">centimeters</option>
+          <option value="millimeters">millimeters</option>
+        </select>
 
         <label htmlFor="laminate">Laminate</label>
         <select
@@ -265,11 +291,11 @@ const OrderForm = ({ formId, orderForm, forNewOrder = true }) => {
           <option value="cancelled">Cancelled</option>
         </select>
 
-        <label htmlFor="in_house">In house</label>
-        <input
-          type="checkbox"
-          name="in_house"
-          checked={form.in_house}
+        <label htmlFor="notes">Notes</label>
+        <textarea
+          name="notes"
+          rows="6"
+          value={form.notes}
           onChange={handleChange}
         />
 

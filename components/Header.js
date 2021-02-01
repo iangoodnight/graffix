@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { signIn, useSession } from 'next-auth/client';
+import { signIn, signOut, useSession } from 'next-auth/client';
 
 import ActiveLink from './ActiveLink.js';
 import headerStyles from './Header.module.scss';
@@ -45,11 +45,7 @@ const Header = () => {
             </li>
             <li>
               {!session && <button onClick={signIn}>Sign in</button>}
-              {session && (
-                <ActiveLink href="/account">
-                  <a className={headerStyles['active-link']}>Account</a>
-                </ActiveLink>
-              )}
+              {session && <button onClick={signOut}>Sign out</button>}
             </li>
           </ul>
         </nav>

@@ -37,8 +37,10 @@ export async function getServerSideProps({ params }) {
 
   const order = await Order.findById(params.id).lean();
   order._id = order._id.toString();
+  order.order_date = new Date(order?.order_date || null).getDate();
   order.createdAt = new Date(order?.createdAt || null).getDate();
   order.updatedAt = new Date(order?.updatedAt || null).getDate();
+  if (order.history) delete order.history;
 
   return { props: { order } };
 }

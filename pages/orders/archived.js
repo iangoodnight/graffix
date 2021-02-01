@@ -60,7 +60,7 @@ const Archived = ({ orders }) => {
 
   return (
     <div>
-      <h1>On hold</h1>
+      <h1>Archived</h1>
       <RadioButtons
         options={['all orders', ...Object.keys(activeFilter)]}
         radio={radio}
@@ -102,7 +102,9 @@ export async function getServerSideProps() {
 
   /* find all data the matches queue statuses */
   const result = await Order.find({
-    open: false,
+    status: {
+      $in: ['completed', 'cancelled'],
+    },
   });
   const orders = result.map((doc) => {
     const order = doc.toObject();
@@ -110,7 +112,6 @@ export async function getServerSideProps() {
     order.order_date = new Date(
       order?.order_date || order?.createdAt || null
     ).toLocaleDateString();
-    console.log(order.order_date);
     order.createdAt = new Date(order?.createdAt || null).getDate();
     order.updatedAt = new Date(order?.updatedAt || null).getDate();
     if (order.history) {
