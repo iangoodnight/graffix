@@ -75,7 +75,6 @@ const OrderForm = ({ formId, orderForm, forNewOrder = true }) => {
       if (!res.ok) {
         throw new Error(res.status);
       }
-      console.log(JSON.stringify(form));
       router.push('/');
     } catch (error) {
       setMessage('Failed to add order');
@@ -86,7 +85,6 @@ const OrderForm = ({ formId, orderForm, forNewOrder = true }) => {
     const target = e.target;
     const value = target.name === 'in_house' ? target.checked : target.value;
     const name = target.name;
-    console.log(`target: ${target}, value: ${value}, name: ${name}`);
 
     switch (name) {
       case 'artwork':
@@ -201,6 +199,9 @@ const OrderForm = ({ formId, orderForm, forNewOrder = true }) => {
           onChange={handleChange}
           required
         />
+
+        <label htmlFor="email">Email</label>
+        <input type="email" name="email" />
 
         <label htmlFor="artwork">Artwork</label>
         <input

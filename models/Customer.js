@@ -20,6 +20,12 @@ const CustomerSchema = new mongoose.Schema({
   notes: {
     type: String,
   },
+  orders: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'Order',
+    },
+  ],
 });
 
 export default mongoose.models.Customer ||

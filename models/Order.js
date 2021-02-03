@@ -9,9 +9,8 @@ const OrderSchema = new mongoose.Schema(
     },
     customer: {
       /* This will need to refer to the customer collection */
-      type: String,
-      required: [true, 'Please provide a customer name.'],
-      maxlength: [64, 'Name cannot be more than 64 characters.'],
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'Customer',
     },
     artwork: {
       title: String,
