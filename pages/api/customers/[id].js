@@ -1,6 +1,6 @@
 import { getSession } from 'next-auth/client';
 
-import Order from '../../../models/Order';
+import Customer from '../../../models/Customer';
 import dbConnect from '../../../utils/dbConnect';
 
 export default async function handler(req, res) {
@@ -15,35 +15,36 @@ export default async function handler(req, res) {
     await dbConnect();
 
     switch (method) {
-      case 'GET' /* Get an order by its ID */:
+      case 'GET':
         try {
-          const order = await Order.findById(id).populate('customer');
-          if (!order) {
+          console.log(`id: ${id}`);
+          const customer = await Customer.findById(id);
+          if (!customer) {
             return res.status(400).json({ success: false });
           }
-          res.status(200).json({ success: true, data: order });
+          res.status(200).json({ success: true, data: customer });
         } catch (error) {
           res.status(400).json({ success: false });
         }
         break;
-      case 'PUT' /* Edit an order by its ID */:
+      case 'PUT':
         try {
-          const order = await Order.findByIdAndUpdate(id, req.body, {
+          const customer = await Customer.findByIdAndUpdate(id, req.body, {
             new: true,
             runValidators: true,
           });
-          if (!order) {
+          if (!customer) {
             return res.status(400).json({ success: false });
           }
-          res.status(200).json({ success: true, data: order });
+          res.status(200).json({ success: true, data: customer });
         } catch (error) {
           res.status(400).json({ success: false });
         }
         break;
-      case 'DELETE' /* Delete an order by its ID */:
+      case 'DELETE':
         try {
-          const deletedOrder = await Order.deleteOne({ _id: id });
-          if (!deletedOrder) {
+          const deletedCustomer = await Customer.deleteOne({ _id: id });
+          if (!deletedCustomer) {
             return res.status(400).json({ success: false });
           }
           res.status(200).json({ success: true, data: {} });

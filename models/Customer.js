@@ -15,7 +15,11 @@ const CustomerSchema = new mongoose.Schema({
     },
   },
   phone: {
-    type: Number,
+    type: String,
+  },
+  in_house: {
+    type: Boolean,
+    default: false,
   },
   notes: {
     type: String,
@@ -27,6 +31,6 @@ const CustomerSchema = new mongoose.Schema({
     },
   ],
 });
-
-export default mongoose.models.Customer ||
+console.log(mongoose.models);
+export default mongoose.models?.Customer ||
   mongoose.model('Customer', CustomerSchema);

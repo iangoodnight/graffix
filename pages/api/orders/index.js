@@ -14,8 +14,8 @@ export default async function handler(req, res) {
     switch (method) {
       case 'GET':
         try {
-          const orders = await Order.find(
-            {}
+          const orders = await Order.find({}).populate(
+            'customer'
           ); /* find all the data in our database */
           res.status(200).json({ success: true, data: orders });
         } catch (error) {

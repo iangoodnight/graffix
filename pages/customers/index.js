@@ -1,29 +1,21 @@
 import Link from 'next/link';
 
 import StatusBox from '../../components/StatusBox';
-import orderStyles from './orders.module.scss';
+import customerStyles from './customers.module.scss';
 
 const Index = () => {
   let queues = [
     {
-      title: 'Order queue',
-      href: 'queue',
-    },
-    {
-      title: 'Production',
-      href: 'production',
-    },
-    {
-      title: 'Outsourced',
-      href: 'outsourced',
-    },
-    {
-      title: 'On hold',
-      href: 'hold',
+      title: 'Active',
+      href: '#',
     },
     {
       title: 'Archived',
-      href: 'archived',
+      href: '#',
+    },
+    {
+      title: 'Internal',
+      href: '#',
     },
   ];
 
@@ -36,12 +28,12 @@ const Index = () => {
   });
 
   return (
-    <div className={orderStyles.content}>
-      <h1>Orders</h1>
-      <Link href="/orders/new">
+    <div className={customerStyles.content}>
+      <h1>Customers</h1>
+      <Link href="customers/new">
         <a>
           <button>
-            New order <span>✚</span>
+            New customer <span>✚</span>
           </button>
         </a>
       </Link>

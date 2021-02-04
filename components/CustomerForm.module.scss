@@ -1,0 +1,113 @@
+@import '../styles/_variables.scss';
+@import '../styles/_mixins.scss';
+
+.form {
+  display: grid;
+  max-width: 100%;
+  margin: auto 0;
+  grid-template-rows: auto auto auto auto 1fr;
+  gap: 24px;
+  grid-template-areas:
+    "head head head head"
+    "name name name inHouse"
+    "email email phone phone "
+    "notes notes notes notes"
+    "submit submit submit submit";
+  border: 2px solid $secondary-color;
+  border-radius: 2em;
+  padding: 2em;
+  min-height: 50vh;
+  font-size: 1.2rem;
+
+  .head {
+    grid-area: head;
+  }
+  .name {
+    grid-area: name;
+  }
+  .in-house {
+    grid-area: inHouse;
+    text-align: center;
+  }
+  .phone {
+    grid-area: phone;
+  }
+  .email {
+    grid-area: email;
+  }
+  .notes {
+    grid-area: notes;
+  }
+  .submit {
+    grid-area: submit;
+  }
+
+  h1 {
+    margin: auto;
+    width: 100%;
+    text-align: center;
+  }
+  input,
+  select,
+  textarea {
+    padding: .25em;
+    width: 100%;
+    text-indent: .5em;
+    border-radius: .5em;
+    border: 1px solid $main-color;
+    font-size: inherit;
+
+    &:focus {
+      border-radius: .5em;
+      border: 2px solid $secondary-color;
+      outline: none;
+    }
+  }
+  input[type="checkbox"] {
+    min-height: 1.3em;
+  }
+  button {
+    display: block;
+    margin: 0 auto;
+    width: 30vw;
+    margin: auto auto;
+    background-color: $secondary-color;
+    color: #fff;
+    border-radius: 1em;
+    font-size: 1.1em;
+    font-weight: 500;
+    padding: .5em;
+  }
+  .description {
+    margin: 0 auto;
+    min-width: 100%;
+    text-align: center;
+    font-style: oblique;
+    font-size: 1rem;
+  }
+}
+@include tablet() {
+  .form {
+    grid-template-rows: auto auto auto auto auto 1fr;      
+    grid-template-areas:
+      "head head head head"
+      "name name name inHouse"
+      "email email email email"
+      "phone phone phone phone"
+      "notes notes notes notes"
+      "submit submit submit submit"; 
+  }
+}
+@include mobile() {
+  .form {
+    grid-template-rows: auto auto auto auto auto auto auto;
+    grid-template-areas:
+      "head"
+      "name"
+      "inHouse"
+      "email"
+      "phone"
+      "notes"
+      "submit"
+  }
+}

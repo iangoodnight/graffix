@@ -59,6 +59,8 @@ const TableRow = ({ headers, data, odd }) => {
               </a>
             ) : col.field === 'label_dimensions' ? (
               formatDimensions(data.label_dimensions)
+            ) : col.field === 'customer' ? (
+              data.customer.name
             ) : (
               data[col.field]
             )}
@@ -74,7 +76,7 @@ const TableRow = ({ headers, data, odd }) => {
           <div>
             <div className={tableStyles['nested-table']}>
               <h3>
-                {data.customer} (#{data.order_number})
+                {data.customer.name} (#{data.order_number})
               </h3>
               <table>
                 <tbody>

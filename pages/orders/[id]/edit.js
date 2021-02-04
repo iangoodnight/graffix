@@ -18,10 +18,11 @@ const EditOrder = () => {
 
   if (error) return <p>Failed to load</p>;
   if (!order) return <p>Loading...</p>;
-
+  console.log(order);
   const orderForm = {
     order_number: order.order_number,
-    customer: order.customer,
+    customer: order.customer['name'],
+    email: order.customer['email'],
     artwork: {
       title: order?.artwork?.title || '',
       link: order?.artwork?.link || '',

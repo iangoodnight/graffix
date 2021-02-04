@@ -22,7 +22,8 @@ export default async function handler(req, res) {
         break;
       case 'POST':
         try {
-          const customer = await Customer.create(req.body.customer);
+          console.log(req.body);
+          const customer = await Customer.create(req.body);
           res.status(201).json({ success: true, data: customer });
         } catch (error) {
           res.status(400).json({ success: false });

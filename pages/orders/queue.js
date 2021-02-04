@@ -104,19 +104,22 @@ export async function getServerSideProps() {
     status: {
       $in: ['new', 'initial contact', 'rendering', 'pending approval'],
     },
-  }).sort([
-    ['customer', 1],
-    ['order_date', 'asc'],
-  ]);
+  })
+    .populate('customer')
+    .sort([
+      ['customer', 1],
+      ['order_date', 'asc'],
+    ]);
   const orders = result.map((doc) => {
     const order = doc.toObject();
+    console.log(order);
     order._id = order._id.toString();
     order.order_date = new Date(
       order?.order_date || order?.createdAt || null
     ).toLocaleDateString();
-    console.log(order.order_date);
     order.createdAt = new Date(order?.createdAt || null).getDate();
     order.updatedAt = new Date(order?.updatedAt || null).getDate();
+    order.customer._id = order.customer._id.toString();
     if (order.history) {
       delete order.history;
     }
