@@ -7,7 +7,7 @@ const Index = () => {
   let queues = [
     {
       title: 'Active',
-      href: '#',
+      href: '/customers/active',
     },
     {
       title: 'Archived',
@@ -30,7 +30,7 @@ const Index = () => {
   return (
     <div className={customerStyles.content}>
       <h1>Customers</h1>
-      <Link href="customers/new">
+      <Link href="/customers/new">
         <a>
           <button>
             New customer <span>✚</span>

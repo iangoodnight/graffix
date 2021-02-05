@@ -7,7 +7,7 @@ const StatusBox = ({ title, href, children }) => {
     <div className={statusBoxStyles.box}>
       <div>
         <h2>
-          <Link href={`/orders/${href}`}>
+          <Link href={`${href}`}>
             <a>{title}</a>
           </Link>
         </h2>

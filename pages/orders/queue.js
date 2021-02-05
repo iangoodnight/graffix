@@ -29,7 +29,6 @@ const OrderQueue = ({ orders }) => {
   const handleChange = (e) => {
     const index = parseInt(e.target.id.split('-')[1]);
     setRadio({ ...radio, checked: index });
-    console.log(activeFilter);
     switch (index) {
       case 0:
         setActiveFilter({
@@ -112,7 +111,6 @@ export async function getServerSideProps() {
     ]);
   const orders = result.map((doc) => {
     const order = doc.toObject();
-    console.log(order);
     order._id = order._id.toString();
     order.order_date = new Date(
       order?.order_date || order?.createdAt || null
@@ -120,12 +118,13 @@ export async function getServerSideProps() {
     order.createdAt = new Date(order?.createdAt || null).getDate();
     order.updatedAt = new Date(order?.updatedAt || null).getDate();
     order.customer._id = order.customer._id.toString();
-    if (order.history) {
-      delete order.history;
-    }
+    if (order.customer.orders) delete order.customer.orders;
+    if (order.history) delete order.history;
+
     return order;
   });
 
   return { props: { orders: orders } };
 }
+
 export default OrderQueue;

@@ -7,23 +7,23 @@ const Index = () => {
   let queues = [
     {
       title: 'Order queue',
-      href: 'queue',
+      href: '/orders/queue',
     },
     {
       title: 'Production',
-      href: 'production',
+      href: '/orders/production',
     },
     {
       title: 'Outsourced',
-      href: 'outsourced',
+      href: '/orders/outsourced',
     },
     {
       title: 'On hold',
-      href: 'hold',
+      href: '/orders/hold',
     },
     {
       title: 'Archived',
-      href: 'archived',
+      href: '/orders/archived',
     },
   ];
 
