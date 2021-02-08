@@ -13,6 +13,7 @@ const OrderForm = ({ formId, orderForm, forNewOrder = true }) => {
   const [form, setForm] = useState({
     order_number: orderForm.order_number,
     customer: orderForm.customer,
+    email: orderForm.email,
     artwork: {
       title: orderForm.artwork.title,
       link: orderForm.artwork.link,
@@ -127,7 +128,6 @@ const OrderForm = ({ formId, orderForm, forNewOrder = true }) => {
             ? ''
             : form.order_number,
         });
-        console.log(form.order_number);
         break;
       default:
         setForm({
@@ -151,7 +151,6 @@ const OrderForm = ({ formId, orderForm, forNewOrder = true }) => {
   const formValidate = () => {
     let err = {};
     if (!form.order_number) err.order_number = 'Order number is required';
-    if (!form.customer) err.customer = 'Customer name is required';
     return err;
   };
 
@@ -193,15 +192,20 @@ const OrderForm = ({ formId, orderForm, forNewOrder = true }) => {
         <label htmlFor="customer">Customer</label>
         <input
           type="text"
-          maxLength="64"
           name="customer"
           value={form.customer}
           onChange={handleChange}
+          disabled={forNewOrder ? false : true}
           required
         />
 
         <label htmlFor="email">Email</label>
-        <input type="email" name="email" />
+        <input
+          type="email"
+          name="email"
+          value={form.email}
+          onChange={handleChange}
+        />
 
         <label htmlFor="artwork">Artwork</label>
         <input

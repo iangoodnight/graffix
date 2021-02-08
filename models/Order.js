@@ -1,5 +1,7 @@
 import mongoose from 'mongoose';
 
+import Customer from './Customer';
+
 const OrderSchema = new mongoose.Schema(
   {
     order_number: {
@@ -93,4 +95,15 @@ const OrderSchema = new mongoose.Schema(
   }
 );
 
+OrderSchema.post('save', function (doc, next) {
+  const orderId = doc._id;
+  const customerId = doc.customer;
+  Customer.findByIdAndUpdate(
+    customerId,
+    { $push: { orders: orderId } },
+    { safe: true, upsert: true, new: true }
+  )
+    .then(() => next())
+    .catch((err) => console.log(err));
+});
 export default mongoose.models.Order || mongoose.model('Order', OrderSchema);

@@ -1,5 +1,6 @@
 import { getSession } from 'next-auth/client';
 
+import Customer from '../../../models/Customer';
 import Order from '../../../models/Order';
 import dbConnect from '../../../utils/dbConnect';
 
@@ -24,6 +25,23 @@ export default async function handler(req, res) {
         break;
       case 'POST':
         try {
+          let customer = await Customer.findOne({ email: req.body.email });
+          if (!customer) {
+            customer = await Customer.findOne({ name: req.body.customer });
+            if (!customer) {
+              customer = await Customer.create({
+                name: req.body.customer,
+                email: req.body.email,
+              });
+            }
+          }
+          if (req.body.customer !== customer.name) {
+            await Customer.findByIdAndUpdate(customer._id, {
+              name: req.body.customer,
+            });
+          }
+          req.body.customer = customer._id;
+          delete req.body.email;
           const order = await Order.create(
             req.body
           ); /* create a new model in the database */

@@ -4,6 +4,7 @@ const NewOrder = () => {
   const orderForm = {
     order_number: '',
     customer: '',
+    email: '',
     artwork: {
       title: '',
       link: '',
@@ -12,9 +13,9 @@ const NewOrder = () => {
     label_dimensions: {
       height: '',
       width: '',
-      unit: '',
+      unit: 'inches',
     },
-    laminate: '',
+    laminate: 'matte',
     priority: '',
     status: 'new',
     in_house: false,

@@ -78,14 +78,20 @@ $inner-row: rgba(0, 0, 0, 0.2);
       list-style: none;
 
       .nested {
-          width: 100%;
-          padding-left: 1em;
+          width: 96%;
+          margin-left: 1em;
+          background-color: rgba(0, 0, 0, 0.05);
 
         thead {
           color: $main-color;
           background-color: inherit;
           font-weight: 500;
           border-bottom: 1px solid $main-color;
+        }
+        tr {
+          &:nth-child(odd) {
+            background-color: rgba(0, 0, 0, 0.06);
+          }
         }
       }
       span {

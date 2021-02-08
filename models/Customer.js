@@ -16,6 +16,7 @@ const CustomerSchema = new mongoose.Schema({
   },
   phone: {
     type: String,
+    default: null,
   },
   in_house: {
     type: Boolean,

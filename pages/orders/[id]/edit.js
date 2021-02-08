@@ -18,7 +18,7 @@ const EditOrder = () => {
 
   if (error) return <p>Failed to load</p>;
   if (!order) return <p>Loading...</p>;
-  console.log(order);
+
   const orderForm = {
     order_number: order.order_number,
     customer: order.customer['name'],
@@ -37,6 +37,7 @@ const EditOrder = () => {
     priority: order.priority,
     status: order.status,
     in_house: order.in_house,
+    notes: order.notes,
   };
 
   return (

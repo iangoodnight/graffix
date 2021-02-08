@@ -1,3 +1,5 @@
+import '../../models/Customer';
+
 import { useState } from 'react';
 
 import RadioButtons from '../../components/RadioButtons';

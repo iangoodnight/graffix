@@ -21,6 +21,7 @@ const ActiveCustomers = ({ customers }) => {
   const headers = [
     { name: 'customer', field: 'name' },
     { name: 'email', field: 'email' },
+    { name: 'open orders', field: 'order_count' },
   ];
 
   const handleChange = (e) => {
@@ -38,7 +39,7 @@ const ActiveCustomers = ({ customers }) => {
         setActiveFilter({
           ...activeFilter,
           ['in-house']: true,
-          ['external']: true,
+          ['external']: false,
         });
         break;
       case 2:
@@ -110,7 +111,9 @@ export async function getServerSideProps() {
     if (!activeCustomerIds.has(customerId)) {
       activeCustomerIds.add(customerId);
       const customer = order.customer;
-      const { name, email, phone, notes } = customer;
+      let { name, email, phone, notes } = customer;
+      if (!phone) phone = '';
+      if (!notes) notes = '';
       activeCustomers[customerId] = {
         _id: customerId,
         name,

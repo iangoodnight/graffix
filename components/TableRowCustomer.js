@@ -32,7 +32,7 @@ const TableRowCustomer = ({ headers, data, odd }) => {
             className={col.field === 'email' ? tableStyles.email : ''}
             key={`${col.field}-${data._id}`}
           >
-            {data[col.field]}
+            {col.field === 'order_count' ? data.orders.length : data[col.field]}
           </td>
         ))}
       </tr>
