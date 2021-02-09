@@ -32,6 +32,9 @@ const options = {
     jwt: true,
     maxAge: 7 * 24 * 60 * 60 /* one week */,
   },
+  jwt: {
+    secret: process.env.JWT_SIGNATURE_PRIVATE_KEY,
+  },
   database: process.env.MONGODB_URI,
 };
 

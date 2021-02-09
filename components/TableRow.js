@@ -76,7 +76,7 @@ const TableRow = ({ headers, data, odd }) => {
           <div>
             <div className={tableStyles['nested-table']}>
               <h3>
-                {data.customer.name} (#{data.order_number})
+                {data.customer?.name || ''} (#{data.order_number})
               </h3>
               <table>
                 <tbody>

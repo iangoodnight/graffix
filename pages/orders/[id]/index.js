@@ -1,4 +1,6 @@
 // import Link from 'next/link';
+import '../../../models/Customer';
+
 import { useRouter } from 'next/router';
 import { useState } from 'react';
 
@@ -25,7 +27,7 @@ const OrderPage = ({ order }) => {
   return (
     <div key={order._id}>
       <h5>{order.order_number}</h5>
-      <h5>{order.customer}</h5>
+      <h5>{order.customer.name}</h5>
       <button onClick={handleDelete}>Delete</button>
       {message && <p>{message}</p>}
     </div>
@@ -35,13 +37,17 @@ const OrderPage = ({ order }) => {
 export async function getServerSideProps({ params }) {
   await dbConnect();
 
-  const order = await Order.findById(params.id).lean();
+  const order = await Order.findById(params.id).populate('customer').lean();
   order._id = order._id.toString();
+  order.customer._id = order.customer._id.toString();
   order.order_date = new Date(order?.order_date || null).getDate();
   order.createdAt = new Date(order?.createdAt || null).getDate();
   order.updatedAt = new Date(order?.updatedAt || null).getDate();
+  order.label_dimensions.height = parseInt(order.label_dimensions.height);
+  order.label_dimensions.width = parseInt(order.label_dimensions.width);
   if (order.history) delete order.history;
-
+  if (order?.customer?.orders) delete order.customer.orders;
+  console.log(order);
   return { props: { order } };
 }
 

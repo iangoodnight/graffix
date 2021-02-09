@@ -92,7 +92,7 @@ const TableRowCustomer = ({ headers, data, odd }) => {
             <Link href={`/customers/${data._id}`}>
               <button aria-label="View details">View</button>
             </Link>
-            <Link href={`/orders/${data._id}/edit`}>
+            <Link href={`/customers/${data._id}/edit`}>
               <button aria-label="Edit customer">Edit</button>
             </Link>
           </div>

@@ -27,6 +27,7 @@ const ActiveCustomers = ({ customers }) => {
   const handleChange = (e) => {
     const index = parseInt(e.target.id.split('-')[1]);
     setRadio({ ...radio, checked: index });
+    console.log(activeFilter);
     switch (index) {
       case 0:
         setActiveFilter({
@@ -106,16 +107,17 @@ export async function getServerSideProps() {
   const activeCustomers = {};
   result.forEach((doc) => {
     const order = doc.toObject();
-    const customerId = order.customer._id.toString();
+    const customerId = order?.customer?._id.toString() || '';
     const orderId = order._id.toString();
     if (!activeCustomerIds.has(customerId)) {
       activeCustomerIds.add(customerId);
       const customer = order.customer;
-      let { name, email, phone, notes } = customer;
+      let { in_house, name, email, phone, notes } = customer;
       if (!phone) phone = '';
       if (!notes) notes = '';
       activeCustomers[customerId] = {
         _id: customerId,
+        in_house,
         name,
         email,
         phone,

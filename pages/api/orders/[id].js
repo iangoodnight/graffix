@@ -1,5 +1,6 @@
 import { getSession } from 'next-auth/client';
 
+import Customer from '../../../models/Customer';
 import Order from '../../../models/Order';
 import dbConnect from '../../../utils/dbConnect';
 
@@ -28,15 +29,29 @@ export default async function handler(req, res) {
         break;
       case 'PUT' /* Edit an order by its ID */:
         try {
+          if (req.body.email !== '') {
+            const customer = await Customer.findOne({
+              email: req.body.email,
+            }).lean();
+            req.body.customer = customer._id;
+          } else {
+            const newCustomer = await Customer.create({
+              name: req.body.customer,
+            }).lean();
+            req.body.customer = newCustomer._id;
+          }
+          console.log(req.body);
+          delete req.body.email;
           const order = await Order.findByIdAndUpdate(id, req.body, {
             new: true,
             runValidators: true,
-          });
+          }).populate('customer');
           if (!order) {
             return res.status(400).json({ success: false });
           }
           res.status(200).json({ success: true, data: order });
         } catch (error) {
+          console.log(error);
           res.status(400).json({ success: false });
         }
         break;

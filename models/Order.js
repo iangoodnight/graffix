@@ -102,8 +102,6 @@ OrderSchema.post('save', function (doc, next) {
     customerId,
     { $push: { orders: orderId } },
     { safe: true, upsert: true, new: true }
-  )
-    .then(() => next())
-    .catch((err) => console.log(err));
+  ).then(() => next());
 });
 export default mongoose.models.Order || mongoose.model('Order', OrderSchema);
