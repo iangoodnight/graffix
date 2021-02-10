@@ -161,150 +161,194 @@ const OrderForm = ({ formId, orderForm, forNewOrder = true }) => {
         className={orderFormStyles.form}
         onSubmit={handleSubmit}
       >
-        <h1>Order</h1>
-        <p className={orderFormStyles.description}>
-          <span>
-            {forNewOrder
-              ? `New order: ${form.order_number}`
-              : `Currently editing order: ${form.order_number}`}
-          </span>
-        </p>
+        <div className={orderFormStyles.head}>
+          <h1>Order</h1>
+          <p className={orderFormStyles.description}>
+            <span>
+              {forNewOrder
+                ? `New order: ${form.order_number}`
+                : `Currently editing order: ${form.order_number}`}
+            </span>
+          </p>
+        </div>
 
-        <label htmlFor="in_house">In house</label>
-        <input
-          type="checkbox"
-          name="in_house"
-          checked={form.in_house}
-          onChange={handleChange}
-        />
+        <div className={orderFormStyles['in-house']}>
+          <label htmlFor="in_house">In house</label>
+          <input
+            type="checkbox"
+            name="in_house"
+            checked={form.in_house}
+            onChange={handleChange}
+          />
+        </div>
 
-        <label htmlFor="order_number">Order number</label>
-        <input
-          type="text"
-          maxLength="16"
-          name="order_number"
-          value={form.order_number}
-          onChange={handleChange}
-          disabled={form.in_house}
-          required
-        />
+        <div className={orderFormStyles['order-number']}>
+          <label htmlFor="order_number">Order number</label>
+          <input
+            type="text"
+            maxLength="16"
+            name="order_number"
+            value={form.order_number}
+            onChange={handleChange}
+            disabled={form.in_house}
+            required
+          />
+        </div>
 
-        <label htmlFor="customer">Customer</label>
-        <input
-          type="text"
-          name="customer"
-          value={form.customer}
-          onChange={handleChange}
-          disabled={forNewOrder ? false : true}
-          required
-        />
+        <div className={orderFormStyles.customer}>
+          <label htmlFor="customer">Customer</label>
+          <input
+            type="text"
+            name="customer"
+            value={form.customer}
+            onChange={handleChange}
+            disabled={forNewOrder ? false : true}
+            required
+          />
+        </div>
 
-        <label htmlFor="email">Email</label>
-        <input
-          type="email"
-          name="email"
-          value={form.email}
-          onChange={handleChange}
-        />
+        <div className={orderFormStyles.email}>
+          <label htmlFor="email">Email</label>
+          <input
+            type="email"
+            name="email"
+            value={form.email}
+            onChange={handleChange}
+          />
+        </div>
 
-        <label htmlFor="artwork">Artwork</label>
-        <input
-          type="text"
-          name="artwork"
-          value={form.artwork.title}
-          onChange={handleChange}
-        />
+        <div className={orderFormStyles.artwork}>
+          <label htmlFor="artwork">Artwork</label>
+          <input
+            type="text"
+            name="artwork"
+            value={form.artwork.title}
+            onChange={handleChange}
+          />
+        </div>
 
-        <label htmlFor="link">Link</label>
-        <input
-          type="text"
-          name="link"
-          value={form.artwork.link}
-          onChange={handleChange}
-        />
+        <div className={orderFormStyles.link}>
+          <label htmlFor="link">Link</label>
+          <input
+            type="text"
+            name="link"
+            value={form.artwork.link}
+            onChange={handleChange}
+          />
+        </div>
 
-        <label htmlFor="label_quantity">Quantity</label>
-        <input
-          type="number"
-          name="label_quantity"
-          value={form.label_quantity}
-          onChange={handleChange}
-        />
+        <div className={orderFormStyles.quantity}>
+          <label htmlFor="label_quantity">Quantity</label>
+          <input
+            type="number"
+            name="label_quantity"
+            value={form.label_quantity}
+            onChange={handleChange}
+          />
+        </div>
 
-        <label htmlFor="height">Height</label>
-        <input
-          type="number"
-          step={0.01}
-          name="height"
-          value={form.label_dimensions.height}
-          onChange={handleChange}
-        />
+        <div className={orderFormStyles.machine}>
+          <label htmlFor="machine">Machine</label>
+          <select name="machine">
+            <option>metas</option>
+            <option>plotter</option>
+          </select>
+        </div>
 
-        <label htmlFor="width">Width</label>
-        <input
-          type="number"
-          step={0.01}
-          name="width"
-          value={form.label_dimensions.width}
-          onChange={handleChange}
-        />
+        <div className={orderFormStyles.height}>
+          <label htmlFor="height">Height</label>
+          <input
+            type="number"
+            step={0.01}
+            name="height"
+            value={form.label_dimensions.height}
+            onChange={handleChange}
+          />
+        </div>
 
-        <label htmlFor="unit">Unit</label>
-        <select
-          name="unit"
-          defaultValue={form.label_dimensions.unit}
-          onBlur={handleChange}
-        >
-          <option value="inches">inches</option>
-          <option value="centimeters">centimeters</option>
-          <option value="millimeters">millimeters</option>
-        </select>
+        <div className={orderFormStyles.width}>
+          <label htmlFor="width">Width</label>
+          <input
+            type="number"
+            step={0.01}
+            name="width"
+            value={form.label_dimensions.width}
+            onChange={handleChange}
+          />
+        </div>
 
-        <label htmlFor="laminate">Laminate</label>
-        <select
-          name="laminate"
-          defaultValue={form.laminate}
-          onBlur={handleChange}
-        >
-          <option value="">---</option>
-          <option value="matte">Matte</option>
-          <option value="high-gloss">High-gloss</option>
-        </select>
+        <div className={orderFormStyles.unit}>
+          <label htmlFor="unit">Unit</label>
+          <select
+            name="unit"
+            defaultValue={form.label_dimensions.unit}
+            onBlur={handleChange}
+          >
+            <option value="inches">inches</option>
+            <option value="centimeters">centimeters</option>
+            <option value="millimeters">millimeters</option>
+          </select>
+        </div>
 
-        <label htmlFor="priority">Priority</label>
-        <select
-          name="priority"
-          defaultValue={form.priority}
-          onBlur={handleChange}
-        >
-          <option value="">---</option>
-          <option value="rush">Rush</option>
-          <option value="reprint">Reprint</option>
-        </select>
+        <div className={orderFormStyles.laminate}>
+          <label htmlFor="laminate">Laminate</label>
+          <select
+            name="laminate"
+            defaultValue={form.laminate}
+            onBlur={handleChange}
+          >
+            <option value="">---</option>
+            <option value="matte">Matte</option>
+            <option value="high-gloss">High-gloss</option>
+          </select>
+        </div>
 
-        <label htmlFor="status">Status</label>
-        <select name="status" defaultValue={form.status} onBlur={handleChange}>
-          <option value="new">New</option>
-          <option value="initial contact">Reach-out</option>
-          <option value="rendering">Rendering</option>
-          <option value="pending approval">Pending Approval</option>
-          <option value="approved">Approved</option>
-          <option value="printed">Printed</option>
-          <option value="in progress">In progress</option>
-          <option value="on hold">On hold</option>
-          <option value="completed">Completed</option>
-          <option value="cancelled">Cancelled</option>
-        </select>
+        <div className={orderFormStyles.priority}>
+          <label htmlFor="priority">Priority</label>
+          <select
+            name="priority"
+            defaultValue={form.priority}
+            onBlur={handleChange}
+          >
+            <option value="">---</option>
+            <option value="rush">Rush</option>
+            <option value="reprint">Reprint</option>
+          </select>
+        </div>
 
-        <label htmlFor="notes">Notes</label>
-        <textarea
-          name="notes"
-          rows="6"
-          value={form.notes}
-          onChange={handleChange}
-        />
+        <div className={orderFormStyles.status}>
+          <label htmlFor="status">Status</label>
+          <select
+            name="status"
+            defaultValue={form.status}
+            onBlur={handleChange}
+          >
+            <option value="new">New</option>
+            <option value="initial contact">Reach-out</option>
+            <option value="rendering">Rendering</option>
+            <option value="pending approval">Pending Approval</option>
+            <option value="approved">Approved</option>
+            <option value="printed">Printed</option>
+            <option value="in progress">In progress</option>
+            <option value="on hold">On hold</option>
+            <option value="completed">Completed</option>
+            <option value="cancelled">Cancelled</option>
+          </select>
+        </div>
 
-        <button type="submit">Submit</button>
+        <div className={orderFormStyles.notes}>
+          <label htmlFor="notes">Notes</label>
+          <textarea
+            name="notes"
+            rows="6"
+            value={form.notes}
+            onChange={handleChange}
+          />
+        </div>
+
+        <div className={orderFormStyles.submit}>
+          <button type="submit">Submit</button>
+        </div>
       </form>
       <p>{message}</p>
       <div>
