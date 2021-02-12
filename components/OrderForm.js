@@ -3,6 +3,7 @@ import { useState } from 'react';
 import { mutate } from 'swr';
 
 import orderFormStyles from './OrderForm.module.scss';
+import OrderSuccessModal from './OrderSuccessModal';
 
 const OrderForm = ({ formId, orderForm, forNewOrder = true }) => {
   const router = useRouter();
@@ -25,6 +26,7 @@ const OrderForm = ({ formId, orderForm, forNewOrder = true }) => {
       unit: orderForm.label_dimensions.unit,
     },
     laminate: orderForm.laminate,
+    machine: orderForm.machine,
     priority: orderForm.priority,
     status: orderForm.status,
     in_house: orderForm.in_house,
@@ -148,6 +150,37 @@ const OrderForm = ({ formId, orderForm, forNewOrder = true }) => {
     }
   };
 
+  const handleClick = (e) => {
+    e.preventDefault();
+    const targetName = e.target.name;
+
+    switch (targetName) {
+      case 'orders':
+        router.push('/orders');
+        break;
+      case 'add':
+        setForm({
+          ...form,
+          artwork: { title: '', link: '' },
+          label_quantity: '',
+          label_dimensions: {
+            height: '',
+            width: '',
+            unit: 'inches',
+          },
+          laminate: 'matte',
+          machine: '',
+          priority: '',
+          status: 'new',
+          notes: '',
+        });
+        break;
+      default:
+        break;
+    }
+    console.log(e.target.name);
+  };
+
   const formValidate = () => {
     let err = {};
     if (!form.order_number) err.order_number = 'Order number is required';
@@ -156,6 +189,7 @@ const OrderForm = ({ formId, orderForm, forNewOrder = true }) => {
 
   return (
     <>
+      <OrderSuccessModal visible={true} handleClick={handleClick} />
       <form
         id={formId}
         className={orderFormStyles.form}
@@ -193,6 +227,19 @@ const OrderForm = ({ formId, orderForm, forNewOrder = true }) => {
             disabled={form.in_house}
             required
           />
+        </div>
+
+        <div className={orderFormStyles.priority}>
+          <label htmlFor="priority">Priority</label>
+          <select
+            name="priority"
+            defaultValue={form.priority}
+            onBlur={handleChange}
+          >
+            <option value="">---</option>
+            <option value="rush">Rush</option>
+            <option value="reprint">Reprint</option>
+          </select>
         </div>
 
         <div className={orderFormStyles.customer}>
@@ -247,11 +294,16 @@ const OrderForm = ({ formId, orderForm, forNewOrder = true }) => {
           />
         </div>
 
-        <div className={orderFormStyles.machine}>
-          <label htmlFor="machine">Machine</label>
-          <select name="machine">
-            <option>metas</option>
-            <option>plotter</option>
+        <div className={orderFormStyles.laminate}>
+          <label htmlFor="laminate">Laminate</label>
+          <select
+            name="laminate"
+            defaultValue={form.laminate}
+            onBlur={handleChange}
+          >
+            <option value="">---</option>
+            <option value="matte">Matte</option>
+            <option value="high-gloss">High-gloss</option>
           </select>
         </div>
 
@@ -290,29 +342,16 @@ const OrderForm = ({ formId, orderForm, forNewOrder = true }) => {
           </select>
         </div>
 
-        <div className={orderFormStyles.laminate}>
-          <label htmlFor="laminate">Laminate</label>
+        <div className={orderFormStyles.machine}>
+          <label htmlFor="machine">Machine</label>
           <select
-            name="laminate"
-            defaultValue={form.laminate}
+            name="machine"
+            defaultValue={form.machine}
             onBlur={handleChange}
           >
             <option value="">---</option>
-            <option value="matte">Matte</option>
-            <option value="high-gloss">High-gloss</option>
-          </select>
-        </div>
-
-        <div className={orderFormStyles.priority}>
-          <label htmlFor="priority">Priority</label>
-          <select
-            name="priority"
-            defaultValue={form.priority}
-            onBlur={handleChange}
-          >
-            <option value="">---</option>
-            <option value="rush">Rush</option>
-            <option value="reprint">Reprint</option>
+            <option value="metas">Metas</option>
+            <option value="plotter">Plotter</option>
           </select>
         </div>
 

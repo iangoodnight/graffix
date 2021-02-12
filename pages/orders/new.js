@@ -16,6 +16,7 @@ const NewOrder = () => {
       unit: 'inches',
     },
     laminate: 'matte',
+    machine: '',
     priority: '',
     status: 'new',
     in_house: false,

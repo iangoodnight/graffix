@@ -34,6 +34,7 @@ const EditOrder = () => {
       unit: order.label_dimensions.unit,
     },
     laminate: order.laminate,
+    machine: order.machine,
     priority: order.priority,
     status: order.status,
     in_house: order.in_house,
