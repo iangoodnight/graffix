@@ -10,7 +10,9 @@ const OrderForm = ({ formId, orderForm, forNewOrder = true }) => {
   const contentType = 'application/json';
   const [errors, setErrors] = useState({});
   const [message, setMessage] = useState('');
-
+  const [modal, setModal] = useState({
+    open: false,
+  });
   const [form, setForm] = useState({
     order_number: orderForm.order_number,
     customer: orderForm.customer,
@@ -78,7 +80,7 @@ const OrderForm = ({ formId, orderForm, forNewOrder = true }) => {
       if (!res.ok) {
         throw new Error(res.status);
       }
-      router.push('/');
+      setModal({ open: true });
     } catch (error) {
       setMessage('Failed to add order');
     }
@@ -174,6 +176,7 @@ const OrderForm = ({ formId, orderForm, forNewOrder = true }) => {
           status: 'new',
           notes: '',
         });
+        setModal({ open: false });
         break;
       default:
         break;
@@ -189,7 +192,7 @@ const OrderForm = ({ formId, orderForm, forNewOrder = true }) => {
 
   return (
     <>
-      <OrderSuccessModal visible={true} handleClick={handleClick} />
+      <OrderSuccessModal visible={modal.open} handleClick={handleClick} />
       <form
         id={formId}
         className={orderFormStyles.form}
