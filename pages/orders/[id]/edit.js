@@ -38,8 +38,11 @@ const EditOrder = () => {
     priority: order.priority,
     status: order.status,
     in_house: order.in_house,
+    upc: order.upc || '',
+    order_date: order.order_date.split('T')[0],
     notes: order.notes,
   };
+  console.log(orderForm);
 
   return (
     <OrderForm

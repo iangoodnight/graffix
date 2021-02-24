@@ -5,7 +5,8 @@
   display: grid;
   max-width: 100%;
   margin: auto 0;
-  grid-template-rows: auto auto auto auto auto auto auto auto auto auto 1fr;
+  grid-template-rows:
+    auto auto auto auto auto auto auto auto auto auto auto 1fr;
   gap: 24px;
   grid-template-areas: 
     "head head head head head head"
@@ -17,6 +18,7 @@
     "quantity quantity laminate laminate laminate laminate"
     "height height width width unit unit"
     "machine machine machine status status status"
+    "upc upc upc orderDate orderDate orderDate"
     "notes notes notes notes notes notes"
     "submit submit submit submit submit submit";
   border: 2px solid $secondary-color;
@@ -26,7 +28,7 @@
   font-size: 1.2rem;
 
   @include mobile() {
-    grid-template-rows: repeat(17 auto-fit);
+    grid-template-rows: repeat(19 auto-fit);
     grid-template-areas:
       "head"
       "house"
@@ -43,6 +45,8 @@
       "unit"
       "machine"
       "status"
+      "upc"
+      "orderDate"
       "notes"
       "submit"
   }
@@ -92,6 +96,12 @@
   }
   .status {
     grid-area: status;
+  }
+  .upc {
+    grid-area: upc;
+  }
+  .order-date {
+    grid-area: orderDate;
   }
   .notes {
     grid-area: notes;

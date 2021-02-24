@@ -7,6 +7,9 @@ const OrderSuccessModal = ({ visible, handleClick }) => {
     >
       <div className={modalStyles.content}>
         <h3>Great success!</h3>
+        <button name="view" onClick={handleClick}>
+          View Order
+        </button>
         <button name="orders" onClick={handleClick}>
           Back to orders
         </button>

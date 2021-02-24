@@ -18,10 +18,6 @@ const Index = () => {
       href: '/orders/outsourced',
     },
     {
-      title: 'On hold',
-      href: '/orders/hold',
-    },
-    {
       title: 'Archived',
       href: '/orders/archived',
     },
@@ -49,5 +45,7 @@ const Index = () => {
     </div>
   );
 };
+
+export async function getServerSideProps() {}
 
 export default Index;

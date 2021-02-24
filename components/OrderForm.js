@@ -6,6 +6,7 @@ import orderFormStyles from './OrderForm.module.scss';
 import OrderSuccessModal from './OrderSuccessModal';
 
 const OrderForm = ({ formId, orderForm, forNewOrder = true }) => {
+  console.log(orderForm.order_date);
   const router = useRouter();
   const contentType = 'application/json';
   const [errors, setErrors] = useState({});
@@ -32,6 +33,8 @@ const OrderForm = ({ formId, orderForm, forNewOrder = true }) => {
     priority: orderForm.priority,
     status: orderForm.status,
     in_house: orderForm.in_house,
+    upc: orderForm.upc,
+    order_date: orderForm.order_date,
     notes: orderForm.notes,
   });
 
@@ -58,7 +61,8 @@ const OrderForm = ({ formId, orderForm, forNewOrder = true }) => {
 
       /* Update local data without revalidation */
       mutate(`/api/orders/${id}`, data, false);
-      router.push('/orders');
+      router.back();
+      // router.push('/orders');
     } catch (error) {
       setMessage('Failed to update order');
     }
@@ -160,6 +164,9 @@ const OrderForm = ({ formId, orderForm, forNewOrder = true }) => {
       case 'orders':
         router.push('/orders');
         break;
+      case 'view':
+        router.push(`/orders/n/${form.order_number}`);
+        break;
       case 'add':
         setForm({
           ...form,
@@ -177,6 +184,9 @@ const OrderForm = ({ formId, orderForm, forNewOrder = true }) => {
           notes: '',
         });
         setModal({ open: false });
+        break;
+      case 'new':
+        router.reload();
         break;
       default:
         break;
@@ -239,9 +249,15 @@ const OrderForm = ({ formId, orderForm, forNewOrder = true }) => {
             defaultValue={form.priority}
             onBlur={handleChange}
           >
-            <option value="">---</option>
-            <option value="rush">Rush</option>
-            <option value="reprint">Reprint</option>
+            <option value="" selected={form.priority === ''}>
+              ---
+            </option>
+            <option value="rush" selected={form.priority === 'rush'}>
+              Rush
+            </option>
+            <option value="reprint" selected={form.priority === 'reprint'}>
+              Reprint
+            </option>
           </select>
         </div>
 
@@ -304,9 +320,18 @@ const OrderForm = ({ formId, orderForm, forNewOrder = true }) => {
             defaultValue={form.laminate}
             onBlur={handleChange}
           >
-            <option value="">---</option>
-            <option value="matte">Matte</option>
-            <option value="high-gloss">High-gloss</option>
+            <option value="" selected={form.laminate === ''}>
+              ---
+            </option>
+            <option value="matte" selected={form.laminate === 'matte'}>
+              Matte
+            </option>
+            <option
+              value="high-gloss"
+              selected={form.laminate === 'high-gloss'}
+            >
+              High-gloss
+            </option>
           </select>
         </div>
 
@@ -339,9 +364,24 @@ const OrderForm = ({ formId, orderForm, forNewOrder = true }) => {
             defaultValue={form.label_dimensions.unit}
             onBlur={handleChange}
           >
-            <option value="inches">inches</option>
-            <option value="centimeters">centimeters</option>
-            <option value="millimeters">millimeters</option>
+            <option
+              value="inches"
+              selected={form.label_dimensions.unit === 'inches'}
+            >
+              inches
+            </option>
+            <option
+              value="centimeters"
+              selected={form.label_dimensions.unit === 'centimeters'}
+            >
+              centimeters
+            </option>
+            <option
+              value="millimeters"
+              selected={form.label_dimensions.unit === 'millimeters'}
+            >
+              millimeters
+            </option>
           </select>
         </div>
 
@@ -352,9 +392,15 @@ const OrderForm = ({ formId, orderForm, forNewOrder = true }) => {
             defaultValue={form.machine}
             onBlur={handleChange}
           >
-            <option value="">---</option>
-            <option value="metas">Metas</option>
-            <option value="plotter">Plotter</option>
+            <option value="" selected={form.machine === ''}>
+              ---
+            </option>
+            <option value="metas" selected={form.machine === 'metas'}>
+              Metas
+            </option>
+            <option value="plotter" selected={form.machine === 'plotter'}>
+              Plotter
+            </option>
           </select>
         </div>
 
@@ -365,17 +411,63 @@ const OrderForm = ({ formId, orderForm, forNewOrder = true }) => {
             defaultValue={form.status}
             onBlur={handleChange}
           >
-            <option value="new">New</option>
-            <option value="initial contact">Reach-out</option>
-            <option value="rendering">Rendering</option>
-            <option value="pending approval">Pending Approval</option>
-            <option value="approved">Approved</option>
-            <option value="printed">Printed</option>
-            <option value="in progress">In progress</option>
-            <option value="on hold">On hold</option>
-            <option value="completed">Completed</option>
-            <option value="cancelled">Cancelled</option>
+            <option value="new" selected={form.status === 'new'}>
+              New
+            </option>
+            <option
+              value="initial contact"
+              selected={form.status === 'initial contact'}
+            >
+              Reach-out
+            </option>
+            <option value="rendering" selected={form.status === 'rendering'}>
+              Rendering
+            </option>
+            <option
+              value="pending approval"
+              selected={form.status === 'pending approval'}
+            >
+              Pending Approval
+            </option>
+            <option value="approved" selected={form.status === 'approved'}>
+              Approved
+            </option>
+            <option value="printed" selected={form.status === 'printed'}>
+              Printed
+            </option>
+            <option
+              value="in progress"
+              selected={form.status === 'in progress'}
+            >
+              In progress
+            </option>
+            <option value="completed" selected={form.status === 'completed'}>
+              Completed
+            </option>
+            <option value="cancelled" selected={form.status === 'cancelled'}>
+              Cancelled
+            </option>
           </select>
+        </div>
+
+        <div className={orderFormStyles.upc}>
+          <label htmlFor="upc">UPC</label>
+          <input
+            name="upc"
+            type="text"
+            value={form.upc}
+            onChange={handleChange}
+          />
+        </div>
+
+        <div className={orderFormStyles['order-date']}>
+          <label htmlFor="order_date">Order date</label>
+          <input
+            name="order_date"
+            type="date"
+            defaultValue={form.order_date}
+            onChange={handleChange}
+          />
         </div>
 
         <div className={orderFormStyles.notes}>

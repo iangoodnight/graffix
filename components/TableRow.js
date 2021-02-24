@@ -4,6 +4,7 @@ import { useState } from 'react';
 import tableStyles from './Table.module.scss';
 
 const TableRow = ({ headers, data, odd }) => {
+  console.log(data);
   const [rowInterface, setInterface] = useState({
     open: false,
   });
@@ -76,8 +77,15 @@ const TableRow = ({ headers, data, odd }) => {
           <div>
             <div className={tableStyles['nested-table']}>
               <h3>
-                {data.customer?.name || ''} (#{data.order_number})
+                <Link href={`/customers/${data.customer?._id || '#'}`}>
+                  {data.customer?.name || ''}
+                </Link>
               </h3>
+              <h4>
+                <Link href={`/orders/n/${data.order_number}`}>
+                  {`#${data.order_number}`}
+                </Link>
+              </h4>
               <table>
                 <tbody>
                   <tr>
@@ -96,6 +104,14 @@ const TableRow = ({ headers, data, odd }) => {
                       </a>
                     </td>
                   </tr>
+                  {data.upc && data.upc !== '' ? (
+                    <tr>
+                      <th scope="row">UPC</th>
+                      <td>{data.upc}</td>
+                    </tr>
+                  ) : (
+                    false
+                  )}
                   <tr>
                     <th scope="row">Quantity</th>
                     <td>{data.label_quantity}</td>

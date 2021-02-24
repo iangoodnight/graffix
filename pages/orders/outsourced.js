@@ -106,19 +106,21 @@ export async function getServerSideProps() {
       $nin: ['cancelled', 'completed'],
     },
     outsourced: true,
-  });
+  })
+    .populate('customer')
+    .sort([['order_date', 'asc']]);
   const orders = result.map((doc) => {
     const order = doc.toObject();
     order._id = order._id.toString();
     order.order_date = new Date(
       order?.order_date || order?.createdAt || null
     ).toLocaleDateString();
-    console.log(order.order_date);
-    order.createdAt = new Date(order?.createdAt || null).getDate();
-    order.updatedAt = new Date(order?.updatedAt || null).getDate();
-    if (order.history) {
-      delete order.history;
-    }
+    if (order.createdAt) delete order.createdAt;
+    if (order.updatedAt) delete order.updatedAt;
+    if (order.customer.orders) delete order.customer.orders;
+    if (order.history) delete order.history;
+    order.customer._id = order.customer._id.toString();
+
     return order;
   });
 

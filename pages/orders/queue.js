@@ -117,11 +117,11 @@ export async function getServerSideProps() {
     order.order_date = new Date(
       order?.order_date || order?.createdAt || null
     ).toLocaleDateString();
-    order.createdAt = new Date(order?.createdAt || null).getDate();
-    order.updatedAt = new Date(order?.updatedAt || null).getDate();
-    order.customer._id = order.customer._id.toString();
+    if (order.createdAt) delete order.createdAt;
+    if (order.updatedAt) delete order.updatedAt;
     if (order.customer.orders) delete order.customer.orders;
     if (order.history) delete order.history;
+    order.customer._id = order.customer._id.toString();
 
     return order;
   });

@@ -52,7 +52,6 @@ const OrderSchema = new mongoose.Schema(
         'approved',
         'printed',
         'in progress',
-        'on hold',
         'completed',
         'cancelled',
       ],
@@ -70,14 +69,13 @@ const OrderSchema = new mongoose.Schema(
       type: Boolean,
       default: true,
     },
-    po: String,
+    upc: String,
     order_date: {
       type: Date,
       default: Date.now,
     },
     production_date: Date,
     completion_date: Date,
-    hold_date: Date,
     outsourced_date: Date,
     notes: {
       type: String,

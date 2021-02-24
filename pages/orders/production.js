@@ -106,21 +106,42 @@ export async function getServerSideProps() {
       $in: ['approved', 'printed', 'in progress'],
     },
     outsourced: false,
-  });
-  const orders = result.map((doc) => {
-    const order = doc.toObject();
-    order._id = order._id.toString();
-    order.order_date = new Date(
-      order?.order_date || order?.createdAt || null
-    ).toLocaleDateString();
-    console.log(order.order_date);
-    order.createdAt = new Date(order?.createdAt || null).getDate();
-    order.updatedAt = new Date(order?.updatedAt || null).getDate();
-    if (order.history) {
-      delete order.history;
-    }
-    return order;
-  });
+  })
+    .populate('customer')
+    .sort({ order_date: -1 });
+  const orders = result
+    .map((doc) => {
+      const order = doc.toObject();
+      order._id = order._id.toString();
+      order.order_date = new Date(
+        order?.order_date || order?.createdAt || null
+      ).toLocaleDateString();
+      if (order.createdAt) delete order.createdAt;
+      if (order.updatedAt) delete order.updatedAt;
+      if (order.customer.orders) delete order.customer.orders;
+      if (order.history) delete order.history;
+      order.customer._id = order.customer._id.toString();
+
+      return order;
+    })
+    .sort((b, a) => {
+      switch (a.status) {
+        case 'in progress':
+          if (b.status !== 'in progress') return 1;
+          if (b.status === 'in progress') return 0;
+          return -1;
+        case 'printed':
+          if (b.status === 'in progress') return -1;
+          if (b.status === 'approved') return 1;
+          return 0;
+        case 'approved':
+          if (b.status !== 'approved') return -1;
+          if (b.status === 'approved') return 0;
+          return -1;
+        default:
+          break;
+      }
+    });
 
   return { props: { orders: orders } };
 }
